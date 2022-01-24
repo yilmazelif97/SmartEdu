@@ -39,3 +39,25 @@ exports.getAllCourse= async (req,res)=>{
         });
       }
 }
+
+exports.getSingleCourse= async (req,res)=>{
+    const course = await Course.findOne({slug: req.params.slug});
+
+    try {
+        res.status(200).render("coursesingle",{
+            course,
+            page_name:"courses"
+        }) //ilk parametre render edeceği sayfa adı, ikinci parametrede de o sayfaya gönderilcek veriler ekleniyor.
+
+        //json format
+        /*res.status(201).json({
+          status: true,
+          course,
+        });*/
+      } catch (error) {
+        res.status(400).json({
+          status: false,
+          error
+        });
+      }
+}
