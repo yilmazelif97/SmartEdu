@@ -21,7 +21,12 @@ const CourseSchema = new Schema({
   slug:{
       type:String,
       unique:true
+  },
+  category:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref: 'Category' //referans verilmek istenen döküman ismi. Şimdi kursun kategorisi oldu
   }
+
 });
 
 CourseSchema.pre('validate',function(next){
