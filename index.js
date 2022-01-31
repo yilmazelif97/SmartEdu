@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const session = require('express-session')
 const pageRoute = require('./routes/pageRoute')
 
 const courseRoute = require('./routes/courseRoute')
@@ -24,6 +25,11 @@ app.set("view engine","ejs");
 app.use(express.static("public"))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(session({
+    secret: 'my_keyboard cat',
+    resave: false,
+    saveUninitialized: true
+  }))
 
 
 
@@ -43,3 +49,5 @@ app.listen(port,()=>{
 //Status Code: serverdan dönen response un durumuyla ilgili bilgi verir. 404 not found, 200 ok gibi.
 
 //npm i ejs --> template engine
+
+//session --> kullanıcı bilgilerinin sunucu tarafında tutulması

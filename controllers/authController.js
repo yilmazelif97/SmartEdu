@@ -31,9 +31,13 @@ exports.loginUser = async (req, res) => {
                 bcrypt.compare(password, user.password,(err, same)=>{
                     if(same){
                         //session
+                        req.session.userID = user._id
                         console.log('login oldu')
-                      
+                        console.log(req.session.userID)
+                        
+                        
                     }
+                   
                 })
             }
         })
@@ -43,7 +47,10 @@ exports.loginUser = async (req, res) => {
       res.status(400).json({
         status: false,
         message: "User is not successed",
-        error
+        
       });
+      return
     }
   };
+
+  
