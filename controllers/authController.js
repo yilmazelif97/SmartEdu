@@ -22,23 +22,34 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     //kullanıcı var mı kontrolü
-    await User.findOne({ email }, (err, user) => {
+    const user =await User.findOne({ email })
       //kulllanıcı varsa girilen bilgiler uyuşuyor mu kontrolü
-      if (user) {
+      /*if (user) {
         bcrypt.compare(password, user.password, (err, same) => {
           if (same) {
             //session
             req.session.userID = user._id;
             console.log("login oldu");
             console.log(req.session.userID);
-            return res.send({
-              status:true,
-              message:"giriş oldu"
-            })
+            
           }
         });
+      
+      */
+    if(user){
+      const same =bcrypt.compare(password, user.password)
+      if(same){
+        req.session.userID = user._id;
+        console.log("login oldu");
+        console.log(req.session.userID);
+        res.redirect('/')
+
       }
-    });
+     
+    }
+   
+    
+      
   } catch (error) {
     res.status(400).json({
       status: false,
