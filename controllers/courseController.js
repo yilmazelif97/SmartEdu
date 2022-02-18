@@ -6,10 +6,7 @@ exports.createCourse = async (req, res) => {
   const course = await Course.create(req.body);
 
   try {
-    res.status(201).json({
-      status: true,
-      course,
-    });
+    res.status(201).redirect('/courses');
   } catch (error) {
     res.status(400).json({
       status: false,
